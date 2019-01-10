@@ -147,7 +147,7 @@ endif
 ifeq ($(BUILD_C_ANALYZERS)+$(BUILD_JAVA_ANALYZERS),yes+yes)
 BUILD_SYSTEMS_TESTS += make utf8_in_pwd waf
 # the waf test and the make test run the same `make` command; use the same trick as for
-# "build_buck_test" to prevent make from running them in parallel
+# &quot;build_buck_test&quot; to prevent make from running them in parallel
 ifneq ($(filter build_systems_tests config_tests test test-replace,${MAKECMDGOALS}),)
 build_waf_replace: build_make_replace
 build_waf_print: build_make_print
@@ -180,15 +180,15 @@ OCAMLFORMAT_EXE?=ocamlformat
 
 .PHONY: fmt
 fmt:
-	parallel $(OCAMLFORMAT_EXE) -i ::: $$(git diff --name-only --diff-filter=ACMRU $$(git merge-base origin/master HEAD) | grep "\.mli\?$$")
+	parallel $(OCAMLFORMAT_EXE) -i ::: $$(git diff --name-only --diff-filter=ACMRU $$(git merge-base origin/master HEAD) | grep &quot;\.mli\?$$&quot;)
 
-DUNE_ML:=$(shell find * -name 'dune*.in' | grep -v workspace)
+DUNE_ML:=$(shell find * -name &#39;dune*.in&#39; | grep -v workspace)
 
 .PHONY: fmt_dune
 fmt_dune:
 	parallel $(OCAMLFORMAT_EXE) -i ::: $(DUNE_ML)
 
-SRC_ML:=$(shell find * \( -name _build -or -name facebook-clang-plugins -or -path facebook/dependencies -or -path sledge/llvm \) -not -prune -or -type f -and -name '*'.ml -or -name '*'.mli 2>/dev/null)
+SRC_ML:=$(shell find * \( -name _build -or -name facebook-clang-plugins -or -path facebook/dependencies -or -path sledge/llvm \) -not -prune -or -type f -and -name &#39;*&#39;.ml -or -name &#39;*&#39;.mli 2&gt;/dev/null)
 
 .PHONY: fmt_all
 fmt_all:
@@ -224,10 +224,10 @@ real_deadcode: src_build_common
 .PHONY: deadcode
 deadcode:
 ifeq ($(IS_FACEBOOK_TREE),no)
-	$(QUIET)echo "Deadcode detection only works in Facebook builds, skipping"
+	$(QUIET)echo &quot;Deadcode detection only works in Facebook builds, skipping&quot;
 endif
 ifeq ($(GNU_SED),no)
-	$(QUIET)echo "Deadcode detection only works with GNU sed installed, skipping"
+	$(QUIET)echo &quot;Deadcode detection only works with GNU sed installed, skipping&quot;
 endif
 
 ifeq ($(IS_FACEBOOK_TREE),yes)
@@ -244,8 +244,8 @@ toplevel:
 	$(QUIET)$(call silent_on_success,Building Infer REPL,\
 	$(MAKE_SOURCE) toplevel)
 	$(QUIET)echo
-	$(QUIET)echo "You can now use the infer REPL:"
-	$(QUIET)echo "  \"$(ABSOLUTE_ROOT_DIR)/scripts/infer_repl\""
+	$(QUIET)echo &quot;You can now use the infer REPL:&quot;
+	$(QUIET)echo &quot;  \&quot;$(ABSOLUTE_ROOT_DIR)/scripts/infer_repl\&quot;&quot;
 
 toplevel_test: test_build
 	$(QUIET)$(call silent_on_success,Building Infer REPL (test mode),\
@@ -261,27 +261,27 @@ endif
 
 $(INFER_COMMAND_MANUALS): src_build $(MAKEFILE_LIST)
 	$(QUIET)$(MKDIR_P) $(@D)
-	$(QUIET)$(INFER_BIN) $(patsubst infer-%.1,%,$(@F)) --help --help-format=groff > $@
+	$(QUIET)$(INFER_BIN) $(patsubst infer-%.1,%,$(@F)) --help --help-format=groff &gt; $@
 
 $(INFER_COMMAND_TEXT_MANUALS): src_build $(MAKEFILE_LIST)
 	$(QUIET)$(MKDIR_P) $(@D)
-	$(QUIET)$(INFER_BIN) $(patsubst infer-%.txt,%,$(@F)) --help --help-format=plain > $@
+	$(QUIET)$(INFER_BIN) $(patsubst infer-%.txt,%,$(@F)) --help --help-format=plain &gt; $@
 
 $(INFER_MANUAL): src_build $(MAKEFILE_LIST)
 	$(QUIET)$(MKDIR_P) $(@D)
-	$(QUIET)$(INFER_BIN) --help --help-format=groff > $@
+	$(QUIET)$(INFER_BIN) --help --help-format=groff &gt; $@
 
 $(INFER_TEXT_MANUAL): src_build $(MAKEFILE_LIST)
 	$(QUIET)$(MKDIR_P) $(@D)
-	$(QUIET)$(INFER_BIN) --help --help-format=plain > $@
+	$(QUIET)$(INFER_BIN) --help --help-format=plain &gt; $@
 
 $(INFER_FULL_TEXT_MANUAL): src_build $(MAKEFILE_LIST)
 	$(QUIET)$(MKDIR_P) $(@D)
-	$(QUIET)$(INFER_BIN) --help-full --help-format=plain > $@
+	$(QUIET)$(INFER_BIN) --help-full --help-format=plain &gt; $@
 
 $(INFER_GROFF_MANUALS_GZIPPED): %.gz: %
 	$(QUIET)$(REMOVE) $@
-	gzip $<
+	gzip $&lt;
 
 infer_models: src_build
 ifeq ($(BUILD_JAVA_ANALYZERS),yes)
@@ -304,9 +304,9 @@ opt:
 
 .PHONY: clang_setup
 clang_setup:
-	$(QUIET)export CC="$(CC)" CFLAGS="$(CFLAGS)"; \
-	export CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)"; \
-	export CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)"; \
+	$(QUIET)export CC=&quot;$(CC)&quot; CFLAGS=&quot;$(CFLAGS)&quot;; \
+	export CXX=&quot;$(CXX)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot;; \
+	export CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot;; \
 	$(FCP_DIR)/clang/setup.sh --only-check-install || \
 	$(FCP_DIR)/clang/setup.sh
 
@@ -314,9 +314,9 @@ clang_setup:
 clang_plugin: clang_setup
 	$(QUIET)$(call silent_on_success,Building clang plugin,\
 	$(MAKE) -C $(FCP_DIR)/libtooling all \
-	  CC="$(CC)" CXX="$(CXX)" \
-	  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-	  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+	  CC=&quot;$(CC)&quot; CXX=&quot;$(CXX)&quot; \
+	  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+	  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 	  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 	  CLANG_PREFIX=$(CLANG_PREFIX) \
 	  CLANG_INCLUDES=$(CLANG_INCLUDES))
@@ -324,8 +324,8 @@ clang_plugin: clang_setup
 	$(MAKE) -C $(FCP_DIR)/clang-ocaml all \
           build/clang_ast_proj.ml build/clang_ast_proj.mli \
 	  CC=$(CC) CXX=$(CXX) \
-	  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-	  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+	  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+	  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 	  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 	  CLANG_PREFIX=$(CLANG_PREFIX) \
 	  CLANG_INCLUDES=$(CLANG_INCLUDES))
@@ -335,16 +335,16 @@ clang_plugin_test: clang_setup
 		$(QUIET)$(call silent_on_success,Running facebook-clang-plugins/libtooling/ tests,\
 		$(MAKE) -C $(FCP_DIR)/libtooling test \
 		  CC=$(CC) CXX=$(CXX) \
-		  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-		  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+		  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+		  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 		  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 		  CLANG_PREFIX=$(CLANG_PREFIX) \
 		  CLANG_INCLUDES=$(CLANG_INCLUDES))
 		$(QUIET)$(call silent_on_success,Running facebook-clang-plugins/clang-ocaml/ tests,\
 		$(MAKE) -C $(FCP_DIR)/clang-ocaml test \
 		  CC=$(CC) CXX=$(CXX) \
-		  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-		  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+		  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+		  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 		  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 		  CLANG_PREFIX=$(CLANG_PREFIX) \
 		  CLANG_INCLUDES=$(CLANG_INCLUDES))
@@ -354,16 +354,16 @@ clang_plugin_test_replace: clang_setup
 		$(QUIET)$(call silent_on_success,Running facebook-clang-plugins/libtooling/ record tests,\
 		$(MAKE) -C $(FCP_DIR)/libtooling record-test-outputs \
 		  CC=$(CC) CXX=$(CXX) \
-		  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-		  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+		  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+		  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 		  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 		  CLANG_PREFIX=$(CLANG_PREFIX) \
 		  CLANG_INCLUDES=$(CLANG_INCLUDES))
 		$(QUIET)$(call silent_on_success,Running facebook-clang-plugins/clang-ocaml/ record tests,\
 		$(MAKE) -C $(FCP_DIR)/clang-ocaml record-test-outputs \
 		  CC=$(CC) CXX=$(CXX) \
-		  CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" \
-		  CPP="$(CPP)" LDFLAGS="$(LDFLAGS)" LIBS="$(LIBS)" \
+		  CFLAGS=&quot;$(CFLAGS)&quot; CXXFLAGS=&quot;$(CXXFLAGS)&quot; \
+		  CPP=&quot;$(CPP)&quot; LDFLAGS=&quot;$(LDFLAGS)&quot; LIBS=&quot;$(LIBS)&quot; \
 		  LOCAL_CLANG=$(CLANG_PREFIX)/bin/clang \
 		  CLANG_PREFIX=$(CLANG_PREFIX) \
 		  CLANG_INCLUDES=$(CLANG_INCLUDES))
@@ -375,7 +375,7 @@ ocaml_unit_test: test_build
 	INFER_ARGS=--results-dir^infer-out-unit-tests $(BUILD_DIR)/test/inferunit.bc)
 
 define silence_make
-  $(1) 2> >(grep -v 'warning: \(ignoring old\|overriding\) \(commands\|recipe\) for target')
+  $(1) 2&gt; &gt;(grep -v &#39;warning: \(ignoring old\|overriding\) \(commands\|recipe\) for target&#39;)
 endef
 
 .PHONY: $(DIRECT_TESTS:%=direct_%_test)
@@ -447,8 +447,8 @@ endtoend_test: $(BUILD_SYSTEMS_TESTS:%=build_%_test) $(DIRECT_TESTS:%=direct_%_t
 
 .PHONY: check_missing_mli
 check_missing_mli:
-	$(QUIET)for x in $$(find $(INFER_DIR)/src -name "*.ml"); do \
-	    test -f "$$x"i || echo Missing "$$x"i; done
+	$(QUIET)for x in $$(find $(INFER_DIR)/src -name &quot;*.ml&quot;); do \
+	    test -f &quot;$$x&quot;i || echo Missing &quot;$$x&quot;i; done
 
 .PHONY: checkCopyright
 checkCopyright: src_build_common
@@ -466,20 +466,20 @@ endif
 crash_if_not_all_analyzers_enabled:
 ifneq ($(BUILD_C_ANALYZERS)+$(BUILD_JAVA_ANALYZERS),yes+yes)
 ifneq ($(BUILD_C_ANALYZERS),yes)
-	@echo '*** ERROR: Cannot run the full tests: the Clang analyzers are disabled.'
-	@echo '*** ERROR: You can run clang-only tests with:'
-	@echo '*** ERROR:'
-	@echo '*** ERROR:   make config_tests'
-	@echo '*** ERROR:'
+	@echo &#39;*** ERROR: Cannot run the full tests: the Clang analyzers are disabled.&#39;
+	@echo &#39;*** ERROR: You can run clang-only tests with:&#39;
+	@echo &#39;*** ERROR:&#39;
+	@echo &#39;*** ERROR:   make config_tests&#39;
+	@echo &#39;*** ERROR:&#39;
 endif
 ifneq ($(BUILD_JAVA_ANALYZERS),yes)
-	@echo '*** ERROR: Cannot run the full tests: the Java analyzers are disabled.'
-	@echo '*** ERROR: You can run Java-only tests with:'
-	@echo '*** ERROR:'
-	@echo '*** ERROR:   make config_tests'
-	@echo '*** ERROR:'
+	@echo &#39;*** ERROR: Cannot run the full tests: the Java analyzers are disabled.&#39;
+	@echo &#39;*** ERROR: You can run Java-only tests with:&#39;
+	@echo &#39;*** ERROR:&#39;
+	@echo &#39;*** ERROR:   make config_tests&#39;
+	@echo &#39;*** ERROR:&#39;
 endif
-	@echo '*** ERROR: To run the full set of tests, please enable all the analyzers.'
+	@echo &#39;*** ERROR: To run the full set of tests, please enable all the analyzers.&#39;
 	@exit 1
 else
 	@:
@@ -501,7 +501,7 @@ endif
 .PHONY: test
 test: crash_if_not_all_analyzers_enabled config_tests
 ifeq (,$(findstring s,$(MAKEFLAGS)))
-	$(QUIET)echo "$(TERM_INFO)ALL TESTS PASSED$(TERM_RESET)"
+	$(QUIET)echo &quot;$(TERM_INFO)ALL TESTS PASSED$(TERM_RESET)&quot;
 endif
 
 .PHONY: quick-test
@@ -528,108 +528,108 @@ test_clean: $(DIRECT_TESTS:%=direct_%_clean) $(BUILD_SYSTEMS_TESTS:%=build_%_cle
 .PHONY: install
 install: infer $(INFER_GROFF_MANUALS_GZIPPED)
 # create directory structure
-	test -d      '$(DESTDIR)$(bindir)' || \
-	  $(MKDIR_P) '$(DESTDIR)$(bindir)'
-	test -d      '$(DESTDIR)$(mandir)/man1' || \
-	  $(MKDIR_P) '$(DESTDIR)$(mandir)/man1'
-	test -d      '$(DESTDIR)$(libdir)/infer/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/'
+	test -d      &#39;$(DESTDIR)$(bindir)&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(bindir)&#39;
+	test -d      &#39;$(DESTDIR)$(mandir)/man1&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(mandir)/man1&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/&#39;
 ifeq ($(BUILD_C_ANALYZERS),yes)
-	test -d      '$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/'
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/&#39;
 	find facebook-clang-plugins/clang/install/. -type d -print0 | xargs -0 -n 1 \
-	  $(SHELL) -x -c "test -d '$(DESTDIR)$(libdir)'/infer/\$$1 || \
-	    $(MKDIR_P) '$(DESTDIR)$(libdir)'/infer/\$$1" --
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/clang_wrappers/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/clang_wrappers/'
+	  $(SHELL) -x -c &quot;test -d &#39;$(DESTDIR)$(libdir)&#39;/infer/\$$1 || \
+	    $(MKDIR_P) &#39;$(DESTDIR)$(libdir)&#39;/infer/\$$1&quot; --
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/clang_wrappers/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/clang_wrappers/&#39;
 	find infer/models/cpp/include -type d -print0 | xargs -0 -n 1 \
-	  $(SHELL) -x -c "test -d '$(DESTDIR)$(libdir)'/infer/\$$1 || \
-	    $(MKDIR_P) '$(DESTDIR)$(libdir)'/infer/\$$1" --
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/etc/' || \
-		$(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/etc'
+	  $(SHELL) -x -c &quot;test -d &#39;$(DESTDIR)$(libdir)&#39;/infer/\$$1 || \
+	    $(MKDIR_P) &#39;$(DESTDIR)$(libdir)&#39;/infer/\$$1&quot; --
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/etc/&#39; || \
+		$(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/etc&#39;
 endif
 ifeq ($(BUILD_JAVA_ANALYZERS),yes)
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/java/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/java/'
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/java/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/java/&#39;
 endif
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/annotations/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/annotations/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/specs/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/specs/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/python/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/python/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/capture/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/capture/'
-	test -d      '$(DESTDIR)$(libdir)/infer/infer/bin/' || \
-	  $(MKDIR_P) '$(DESTDIR)$(libdir)/infer/infer/bin/'
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/annotations/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/annotations/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/specs/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/specs/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/capture/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/lib/python/inferlib/capture/&#39;
+	test -d      &#39;$(DESTDIR)$(libdir)/infer/infer/bin/&#39; || \
+	  $(MKDIR_P) &#39;$(DESTDIR)$(libdir)/infer/infer/bin/&#39;
 # copy files
 ifeq ($(BUILD_C_ANALYZERS),yes)
-	$(INSTALL_DATA) -C          'facebook-clang-plugins/libtooling/build/FacebookClangPlugin.dylib' \
-	  '$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/FacebookClangPlugin.dylib'
-#	do not use "install" for symbolic links as this will copy the destination file instead
-	find facebook-clang-plugins/clang/install/. -not -type d -not -type l -not -name '*.a' -print0 \
-	  | xargs -0 -I \{\} $(INSTALL_PROGRAM) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
+	$(INSTALL_DATA) -C          &#39;facebook-clang-plugins/libtooling/build/FacebookClangPlugin.dylib&#39; \
+	  &#39;$(DESTDIR)$(libdir)/infer/facebook-clang-plugins/libtooling/build/FacebookClangPlugin.dylib&#39;
+#	do not use &quot;install&quot; for symbolic links as this will copy the destination file instead
+	find facebook-clang-plugins/clang/install/. -not -type d -not -type l -not -name &#39;*.a&#39; -print0 \
+	  | xargs -0 -I \{\} $(INSTALL_PROGRAM) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
 #	all the symlinks in clang are relative and safe to brutally copy over
-	find facebook-clang-plugins/clang/install/. -type l -not -name '*.a' -print0 \
-	  | xargs -0 -I \{\} $(COPY) -a \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
+	find facebook-clang-plugins/clang/install/. -type l -not -name &#39;*.a&#39; -print0 \
+	  | xargs -0 -I \{\} $(COPY) -a \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
 	find infer/lib/clang_wrappers/* -print0 | xargs -0 -I \{\} \
-	  $(INSTALL_PROGRAM) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
+	  $(INSTALL_PROGRAM) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
 #	only for files that point to infer
-	(cd '$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/' && \
-	 $(foreach cc,$(shell find '$(LIB_DIR)/wrappers' -type l), \
-	  [ $(cc) -ef '$(INFER_BIN)' ] && \
-	  $(REMOVE) '$(notdir $(cc))' && \
-	  $(LN_S) ../../bin/infer '$(notdir $(cc))';))
+	(cd &#39;$(DESTDIR)$(libdir)/infer/infer/lib/wrappers/&#39; &amp;&amp; \
+	 $(foreach cc,$(shell find &#39;$(LIB_DIR)/wrappers&#39; -type l), \
+	  [ $(cc) -ef &#39;$(INFER_BIN)&#39; ] &amp;&amp; \
+	  $(REMOVE) &#39;$(notdir $(cc))&#39; &amp;&amp; \
+	  $(LN_S) ../../bin/infer &#39;$(notdir $(cc))&#39;;))
 	find infer/lib/specs/* -print0 | xargs -0 -I \{\} \
-	  $(INSTALL_DATA) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
+	  $(INSTALL_DATA) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
 	find infer/models/cpp/include -not -type d -print0 | xargs -0 -I \{\} \
-		$(INSTALL_DATA) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
-	$(INSTALL_DATA) -C          'infer/lib/linter_rules/linters.al' \
-	  '$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/linters.al'
-	$(INSTALL_DATA) -C          'infer/etc/clang_ast.dict' \
-	  '$(DESTDIR)$(libdir)/infer/infer/etc/clang_ast.dict'
+		$(INSTALL_DATA) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
+	$(INSTALL_DATA) -C          &#39;infer/lib/linter_rules/linters.al&#39; \
+	  &#39;$(DESTDIR)$(libdir)/infer/infer/lib/linter_rules/linters.al&#39;
+	$(INSTALL_DATA) -C          &#39;infer/etc/clang_ast.dict&#39; \
+	  &#39;$(DESTDIR)$(libdir)/infer/infer/etc/clang_ast.dict&#39;
 endif
 ifeq ($(BUILD_JAVA_ANALYZERS),yes)
-	$(INSTALL_DATA) -C          'infer/annotations/annotations.jar' \
-	  '$(DESTDIR)$(libdir)/infer/infer/annotations/annotations.jar'
+	$(INSTALL_DATA) -C          &#39;infer/annotations/annotations.jar&#39; \
+	  &#39;$(DESTDIR)$(libdir)/infer/infer/annotations/annotations.jar&#39;
 	find infer/lib/java/*.jar -print0 | xargs -0 -I \{\} \
-	  $(INSTALL_DATA) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
-	$(INSTALL_PROGRAM) -C      '$(LIB_DIR)'/wrappers/javac \
-	  '$(DESTDIR)$(libdir)'/infer/infer/lib/wrappers/
+	  $(INSTALL_DATA) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
+	$(INSTALL_PROGRAM) -C      &#39;$(LIB_DIR)&#39;/wrappers/javac \
+	  &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/lib/wrappers/
 endif
 	find infer/lib/python/inferlib/* -type f -print0 | xargs -0 -I \{\} \
-	  $(INSTALL_DATA) -C \{\} '$(DESTDIR)$(libdir)'/infer/\{\}
+	  $(INSTALL_DATA) -C \{\} &#39;$(DESTDIR)$(libdir)&#39;/infer/\{\}
 	$(INSTALL_PROGRAM) -C       infer/lib/python/infer.py \
-	  '$(DESTDIR)$(libdir)'/infer/infer/lib/python/infer.py
+	  &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/lib/python/infer.py
 	$(INSTALL_PROGRAM) -C       infer/lib/python/inferTraceBugs \
-	  '$(DESTDIR)$(libdir)'/infer/infer/lib/python/inferTraceBugs
+	  &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/lib/python/inferTraceBugs
 	$(INSTALL_PROGRAM) -C       infer/lib/python/report.py \
-	  '$(DESTDIR)$(libdir)'/infer/infer/lib/python/report.py
-	$(INSTALL_PROGRAM) -C '$(INFER_BIN)' '$(DESTDIR)$(libdir)'/infer/infer/bin/
-	(cd '$(DESTDIR)$(bindir)/' && \
-	 $(REMOVE) infer && \
-	 $(LN_S) '$(libdir_relative_to_bindir)'/infer/infer/bin/infer infer)
+	  &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/lib/python/report.py
+	$(INSTALL_PROGRAM) -C &#39;$(INFER_BIN)&#39; &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/bin/
+	(cd &#39;$(DESTDIR)$(bindir)/&#39; &amp;&amp; \
+	 $(REMOVE) infer &amp;&amp; \
+	 $(LN_S) &#39;$(libdir_relative_to_bindir)&#39;/infer/infer/bin/infer infer)
 	for alias in $(INFER_COMMANDS); do \
-	  (cd '$(DESTDIR)$(bindir)'/ && \
-	   $(REMOVE) "$$alias" && \
-	   $(LN_S) infer "$$alias"); done
+	  (cd &#39;$(DESTDIR)$(bindir)&#39;/ &amp;&amp; \
+	   $(REMOVE) &quot;$$alias&quot; &amp;&amp; \
+	   $(LN_S) infer &quot;$$alias&quot;); done
 	for alias in $(INFER_COMMANDS); do \
-	  (cd '$(DESTDIR)$(libdir)'/infer/infer/bin && \
-	   $(REMOVE) "$$alias" && \
-	   $(LN_S) infer "$$alias"); done
+	  (cd &#39;$(DESTDIR)$(libdir)&#39;/infer/infer/bin &amp;&amp; \
+	   $(REMOVE) &quot;$$alias&quot; &amp;&amp; \
+	   $(LN_S) infer &quot;$$alias&quot;); done
 	$(foreach man,$(INFER_GROFF_MANUALS_GZIPPED), \
-	  $(INSTALL_DATA) -C $(man) '$(DESTDIR)$(mandir)/man1/$(notdir $(man))';)
+	  $(INSTALL_DATA) -C $(man) &#39;$(DESTDIR)$(mandir)/man1/$(notdir $(man))&#39;;)
 ifeq ($(IS_FACEBOOK_TREE),yes)
 ifdef DESTDIR
 ifeq (,$(findstring :/,:$(DESTDIR)))
 #	DESTDIR is set and relative
-	$(MAKE) -C facebook install 'DESTDIR=../$(DESTDIR)'
+	$(MAKE) -C facebook install &#39;DESTDIR=../$(DESTDIR)&#39;
 else
 #	DESTDIR is set and absolute
 	$(MAKE) -C facebook install
@@ -667,7 +667,7 @@ ifeq ($(IS_FACEBOOK_TREE),yes)
 	$(MAKE) -C facebook clean)
 endif
 	$(QUIET)$(call silent_on_success,Removing *.o and *.o.sh,\
-	find $(INFER_DIR)/tests \( -name '*.o' -o -name '*.o.sh' \) -delete)
+	find $(INFER_DIR)/tests \( -name &#39;*.o&#39; -o -name &#39;*.o.sh&#39; \) -delete)
 	$(QUIET)$(call silent_on_success,Removing build logs,\
 	$(REMOVE_DIR) _build_logs $(MAN_DIR))
 
@@ -689,19 +689,19 @@ conf-clean: clean
 	$(REMOVE_DIR) $(MODELS_DIR)/objc/out/
 
 
-# phony because it depends on opam's internal state
+# phony because it depends on opam&#39;s internal state
 .PHONY: opam.locked
 opam.locked: opam
-# allow users to not force a run of opam update since it's very slow
+# allow users to not force a run of opam update since it&#39;s very slow
 ifeq ($(NO_OPAM_UPDATE),)
 	$(QUIET)$(call silent_on_success,opam update,$(OPAM) update)
 endif
 	$(QUIET)$(call silent_on_success,generating opam.locked,\
 	  $(OPAM) lock .)
 
-# This is a magical version number that doesn't reinstall the world when added on top of what we
+# This is a magical version number that doesn&#39;t reinstall the world when added on top of what we
 # have in opam.locked. To upgrade this version number, manually try to install several utop versions
-# until you find one that doesn't recompile the world. TODO(t20828442): get rid of magic
+# until you find one that doesn&#39;t recompile the world. TODO(t20828442): get rid of magic
 OPAM_DEV_DEPS = ocamlformat.0.8 ocp-indent merlin utop.2.2.0 webbrowser
 
 ifneq ($(EMACS),no)
@@ -710,71 +710,71 @@ endif
 
 .PHONY: devsetup
 devsetup: Makefile.autoconf
-	$(QUIET)[ $(OPAM) != "no" ] || (echo 'No `opam` found, aborting setup.' >&2; exit 1)
+	$(QUIET)[ $(OPAM) != &quot;no&quot; ] || (echo &#39;No `opam` found, aborting setup.&#39; &gt;&amp;2; exit 1)
 	$(QUIET)$(call silent_on_success,installing $(OPAM_DEV_DEPS),\
 	  OPAMSWITCH=$(OPAMSWITCH); $(OPAM) install --yes --no-checksum user-setup $(OPAM_DEV_DEPS))
-	$(QUIET)echo '$(TERM_INFO)*** Running `opam user-setup`$(TERM_RESET)' >&2
+	$(QUIET)echo &#39;$(TERM_INFO)*** Running `opam user-setup`$(TERM_RESET)&#39; &gt;&amp;2
 	$(QUIET)OPAMSWITCH=$(OPAMSWITCH); OPAMYES=1; $(OPAM) user-setup install
-	$(QUIET)if [ "$(PLATFORM)" = "Darwin" ] && [ x"$(GNU_SED)" = x"no" ]; then \
-	  echo '$(TERM_INFO)*** Installing GNU sed$(TERM_RESET)' >&2; \
+	$(QUIET)if [ &quot;$(PLATFORM)&quot; = &quot;Darwin&quot; ] &amp;&amp; [ x&quot;$(GNU_SED)&quot; = x&quot;no&quot; ]; then \
+	  echo &#39;$(TERM_INFO)*** Installing GNU sed$(TERM_RESET)&#39; &gt;&amp;2; \
 	  brew install gnu-sed; \
 	fi
-	$(QUIET)if [ "$(PLATFORM)" = "Darwin" ] && ! $$(parallel -h | grep -q GNU); then \
-	  echo '$(TERM_INFO)*** Installing GNU parallel$(TERM_RESET)' >&2; \
+	$(QUIET)if [ &quot;$(PLATFORM)&quot; = &quot;Darwin&quot; ] &amp;&amp; ! $$(parallel -h | grep -q GNU); then \
+	  echo &#39;$(TERM_INFO)*** Installing GNU parallel$(TERM_RESET)&#39; &gt;&amp;2; \
 	  brew install parallel; \
 	fi
-	$(QUIET)if [ ! -d "$$HOME"/.parallel ]; then mkdir "$$HOME"/.parallel; fi
-	$(QUIET)touch "$$HOME"/.parallel/will-cite
-# 	expand all occurrences of "~" in PATH and MANPATH
-	$(QUIET)infer_repo_is_in_path=$$(echo $${PATH//\~/$$HOME} | grep -q "$(ABSOLUTE_ROOT_DIR)"/infer/bin; echo $$?); \
-	infer_repo_is_in_manpath=$$(echo $${MANPATH//\~/$$HOME} | grep -q "$(ABSOLUTE_ROOT_DIR)"/infer/man; echo $$?); \
-	shell_config_file="<could not auto-detect, please fill in yourself>"; \
-	if [ $$(basename "$(ORIG_SHELL)") = "bash" ]; then \
-	  if [ "$(PLATFORM)" = "Linux" ]; then \
-	    shell_config_file="$$HOME"/.bashrc; \
+	$(QUIET)if [ ! -d &quot;$$HOME&quot;/.parallel ]; then mkdir &quot;$$HOME&quot;/.parallel; fi
+	$(QUIET)touch &quot;$$HOME&quot;/.parallel/will-cite
+# 	expand all occurrences of &quot;~&quot; in PATH and MANPATH
+	$(QUIET)infer_repo_is_in_path=$$(echo $${PATH//\~/$$HOME} | grep -q &quot;$(ABSOLUTE_ROOT_DIR)&quot;/infer/bin; echo $$?); \
+	infer_repo_is_in_manpath=$$(echo $${MANPATH//\~/$$HOME} | grep -q &quot;$(ABSOLUTE_ROOT_DIR)&quot;/infer/man; echo $$?); \
+	shell_config_file=&quot;&lt;could not auto-detect, please fill in yourself&gt;&quot;; \
+	if [ $$(basename &quot;$(ORIG_SHELL)&quot;) = &quot;bash&quot; ]; then \
+	  if [ &quot;$(PLATFORM)&quot; = &quot;Linux&quot; ]; then \
+	    shell_config_file=&quot;$$HOME&quot;/.bashrc; \
 	  else \
-	    shell_config_file="$$HOME"/.bash_profile; \
+	    shell_config_file=&quot;$$HOME&quot;/.bash_profile; \
 	  fi; \
-	elif [ $$(basename "$(ORIG_SHELL)") = "zsh" ]; then \
-	  shell_config_file="$$HOME"/.zshrc; \
+	elif [ $$(basename &quot;$(ORIG_SHELL)&quot;) = &quot;zsh&quot; ]; then \
+	  shell_config_file=&quot;$$HOME&quot;/.zshrc; \
 	fi; \
-	if [ "$$infer_repo_is_in_path" != "0" ] || [ "$$infer_repo_is_in_manpath" != "0" ]; then \
-	  echo >&2; \
-	  echo '$(TERM_INFO)*** NOTE: `infer` is not in your PATH or MANPATH. If you are hacking on infer, you may$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: want to make infer executables and manuals available in your terminal. Type$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: the following commands to configure the current terminal and record the$(TERM_RESET)' >&2; \
-	  printf '$(TERM_INFO)*** NOTE: changes in your shell configuration file (%s):$(TERM_RESET)\n' "$$shell_config_file">&2; \
-	  echo >&2; \
-	  if [ "$$infer_repo_is_in_path" != "0" ]; then \
-	    printf '$(TERM_INFO)  export PATH="%s/infer/bin":$$PATH$(TERM_RESET)\n' "$(ABSOLUTE_ROOT_DIR)" >&2; \
+	if [ &quot;$$infer_repo_is_in_path&quot; != &quot;0&quot; ] || [ &quot;$$infer_repo_is_in_manpath&quot; != &quot;0&quot; ]; then \
+	  echo &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: `infer` is not in your PATH or MANPATH. If you are hacking on infer, you may$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: want to make infer executables and manuals available in your terminal. Type$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: the following commands to configure the current terminal and record the$(TERM_RESET)&#39; &gt;&amp;2; \
+	  printf &#39;$(TERM_INFO)*** NOTE: changes in your shell configuration file (%s):$(TERM_RESET)\n&#39; &quot;$$shell_config_file&quot;&gt;&amp;2; \
+	  echo &gt;&amp;2; \
+	  if [ &quot;$$infer_repo_is_in_path&quot; != &quot;0&quot; ]; then \
+	    printf &#39;$(TERM_INFO)  export PATH=&quot;%s/infer/bin&quot;:$$PATH$(TERM_RESET)\n&#39; &quot;$(ABSOLUTE_ROOT_DIR)&quot; &gt;&amp;2; \
 	  fi; \
-	  if [ "$$infer_repo_is_in_manpath" != "0" ]; then \
-	    printf '$(TERM_INFO)  export MANPATH="%s/infer/man":$$MANPATH$(TERM_RESET)\n' "$(ABSOLUTE_ROOT_DIR)" >&2; \
+	  if [ &quot;$$infer_repo_is_in_manpath&quot; != &quot;0&quot; ]; then \
+	    printf &#39;$(TERM_INFO)  export MANPATH=&quot;%s/infer/man&quot;:$$MANPATH$(TERM_RESET)\n&#39; &quot;$(ABSOLUTE_ROOT_DIR)&quot; &gt;&amp;2; \
 	  fi; \
-	  if [ "$$infer_repo_is_in_path" != "0" ]; then \
-	    printf "$(TERM_INFO)  echo 'export PATH=\"%s/infer/bin\":\$$PATH' >> \"$$shell_config_file\"$(TERM_RESET)\n" "$(ABSOLUTE_ROOT_DIR)" >&2; \
+	  if [ &quot;$$infer_repo_is_in_path&quot; != &quot;0&quot; ]; then \
+	    printf &quot;$(TERM_INFO)  echo &#39;export PATH=\&quot;%s/infer/bin\&quot;:\$$PATH&#39; &gt;&gt; \&quot;$$shell_config_file\&quot;$(TERM_RESET)\n&quot; &quot;$(ABSOLUTE_ROOT_DIR)&quot; &gt;&amp;2; \
 	  fi; \
-	  if [ "$$infer_repo_is_in_manpath" != "0" ]; then \
-	    printf "$(TERM_INFO)  echo 'export MANPATH=\"%s/infer/man\":\$$MANPATH' >> \"$$shell_config_file\"$(TERM_RESET)\n" "$(ABSOLUTE_ROOT_DIR)" >&2; \
+	  if [ &quot;$$infer_repo_is_in_manpath&quot; != &quot;0&quot; ]; then \
+	    printf &quot;$(TERM_INFO)  echo &#39;export MANPATH=\&quot;%s/infer/man\&quot;:\$$MANPATH&#39; &gt;&gt; \&quot;$$shell_config_file\&quot;$(TERM_RESET)\n&quot; &quot;$(ABSOLUTE_ROOT_DIR)&quot; &gt;&amp;2; \
 	  fi; \
 	fi; \
-	if [ -z "$(ORIG_SHELL_BUILD_MODE)" ]; then \
-	  echo >&2; \
-	  echo '$(TERM_INFO)*** NOTE: Set `BUILD_MODE=default` in your shell to disable flambda by default.$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: Compiling with flambda is ~5 times slower than without, so unless you are$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: testing infer on a very large project it will not be worth it. Use the$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: commands below to set the default build mode. You can then use `make opt`$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: when you really do want to enable flambda.$(TERM_RESET)' >&2; \
-	  echo >&2; \
-	  printf "$(TERM_INFO)  export BUILD_MODE=default$(TERM_RESET)\n" >&2; \
-	  printf "$(TERM_INFO)  echo 'export BUILD_MODE=default' >> \"$$shell_config_file\"$(TERM_RESET)\n" >&2; \
+	if [ -z &quot;$(ORIG_SHELL_BUILD_MODE)&quot; ]; then \
+	  echo &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: Set `BUILD_MODE=default` in your shell to disable flambda by default.$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: Compiling with flambda is ~5 times slower than without, so unless you are$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: testing infer on a very large project it will not be worth it. Use the$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: commands below to set the default build mode. You can then use `make opt`$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: when you really do want to enable flambda.$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &gt;&amp;2; \
+	  printf &quot;$(TERM_INFO)  export BUILD_MODE=default$(TERM_RESET)\n&quot; &gt;&amp;2; \
+	  printf &quot;$(TERM_INFO)  echo &#39;export BUILD_MODE=default&#39; &gt;&gt; \&quot;$$shell_config_file\&quot;$(TERM_RESET)\n&quot; &gt;&amp;2; \
 	fi
-	$(QUIET)PATH=$(ORIG_SHELL_PATH); if [ "$$(ocamlc -where 2>/dev/null)" != "$$($(OCAMLC) -where)" ]; then \
-	  echo >&2; \
-	  echo '$(TERM_INFO)*** NOTE: The current shell is not set up for the right opam switch.$(TERM_RESET)' >&2; \
-	  echo '$(TERM_INFO)*** NOTE: Please run:$(TERM_RESET)' >&2; \
-	  echo >&2; \
-	  echo "$(TERM_INFO)  eval \$$($(OPAM) env)$(TERM_RESET)" >&2; \
+	$(QUIET)PATH=$(ORIG_SHELL_PATH); if [ &quot;$$(ocamlc -where 2&gt;/dev/null)&quot; != &quot;$$($(OCAMLC) -where)&quot; ]; then \
+	  echo &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: The current shell is not set up for the right opam switch.$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &#39;$(TERM_INFO)*** NOTE: Please run:$(TERM_RESET)&#39; &gt;&amp;2; \
+	  echo &gt;&amp;2; \
+	  echo &quot;$(TERM_INFO)  eval \$$($(OPAM) env)$(TERM_RESET)&quot; &gt;&amp;2; \
 	fi
 
 GHPAGES ?= no
@@ -787,41 +787,41 @@ doc: src_build_common
 ifeq ($(filter doc-publish,${MAKECMDGOALS}),)
 	$(QUIET)$(call silent_on_success,Opening in browser,\
 	browse $(SRC_DIR)/_build/$(BUILD_MODE)/_doc/_html/index.html)
-	$(QUIET)echo "Tip: you can generate the doc for all the opam dependencies of infer like this:"
+	$(QUIET)echo &quot;Tip: you can generate the doc for all the opam dependencies of infer like this:&quot;
 	$(QUIET)echo
-	$(QUIET)echo "  odig odoc # takes a while, run it only when the dependencies change"
-	$(QUIET)echo "  odig doc"
+	$(QUIET)echo &quot;  odig odoc # takes a while, run it only when the dependencies change&quot;
+	$(QUIET)echo &quot;  odig doc&quot;
 endif
 
 .PHONY: doc-publish
 doc-publish: doc $(INFER_GROFF_MANUALS)
 ifeq ($(GHPAGES),no)
-	$(QUIET)echo "$(TERM_ERROR)Please set GHPAGES to a checkout of the gh-pages branch of the GitHub repo of infer$(TERM_RESET)" >&2
+	$(QUIET)echo &quot;$(TERM_ERROR)Please set GHPAGES to a checkout of the gh-pages branch of the GitHub repo of infer$(TERM_RESET)&quot; &gt;&amp;2
 	$(QUIET)exit 1
 endif
 #	sanity check to avoid cryptic error messages and potentially annoying side-effects
-	$(QUIET)if ! [ -d "$(GHPAGES)"/static/man ]; then \
-	  echo "$(TERM_ERROR)ERROR: GHPAGES doesn't seem to point to a checkout of the gh-pages branch of the GitHub repo of infer:$(TERM_RESET)" >&2; \
-	  echo "$(TERM_ERROR)ERROR:   '$(GHPAGES)/static/man' not found or not a directory.$(TERM_RESET)" >&2; \
-	  echo "$(TERM_ERROR)ERROR: Please fix this and try again.$(TERM_RESET)" >&2; \
+	$(QUIET)if ! [ -d &quot;$(GHPAGES)&quot;/static/man ]; then \
+	  echo &quot;$(TERM_ERROR)ERROR: GHPAGES doesn&#39;t seem to point to a checkout of the gh-pages branch of the GitHub repo of infer:$(TERM_RESET)&quot; &gt;&amp;2; \
+	  echo &quot;$(TERM_ERROR)ERROR:   &#39;$(GHPAGES)/static/man&#39; not found or not a directory.$(TERM_RESET)&quot; &gt;&amp;2; \
+	  echo &quot;$(TERM_ERROR)ERROR: Please fix this and try again.$(TERM_RESET)&quot; &gt;&amp;2; \
 	  exit 1; \
 	fi
 	$(QUIET)$(call silent_on_success,Copying man pages,\
-	$(REMOVE_DIR) "$(GHPAGES)"/static/man/*; \
+	$(REMOVE_DIR) &quot;$(GHPAGES)&quot;/static/man/*; \
 	for man in $(INFER_GROFF_MANUALS); do \
-	  groff -Thtml "$$man" > "$(GHPAGES)"/static/man/$$(basename "$$man").html; \
+	  groff -Thtml &quot;$$man&quot; &gt; &quot;$(GHPAGES)&quot;/static/man/$$(basename &quot;$$man&quot;).html; \
 	done)
 ifeq ($(IS_FACEBOOK_TREE),no)
 	$(QUIET)$(call silent_on_success,Copying OCaml modules documentation,\
-	version=$$($(INFER_BIN) --version | head -1 | cut -d ' ' -f 3 | cut -c 2-); \
-	rsync -a --delete $(SRC_DIR)/_build/$(BUILD_MODE)/_doc/_html/ "$(GHPAGES)"/static/odoc/"$$version"; \
-	$(REMOVE) "$(GHPAGES)"/static/odoc/latest; \
-	$(LN_S) "$$version" "$(GHPAGES)"/static/odoc/latest)
+	version=$$($(INFER_BIN) --version | head -1 | cut -d &#39; &#39; -f 3 | cut -c 2-); \
+	rsync -a --delete $(SRC_DIR)/_build/$(BUILD_MODE)/_doc/_html/ &quot;$(GHPAGES)&quot;/static/odoc/&quot;$$version&quot;; \
+	$(REMOVE) &quot;$(GHPAGES)&quot;/static/odoc/latest; \
+	$(LN_S) &quot;$$version&quot; &quot;$(GHPAGES)&quot;/static/odoc/latest)
 else
-	$(QUIET)echo "Not an open-source tree, skipping the API docs generation"
+	$(QUIET)echo &quot;Not an open-source tree, skipping the API docs generation&quot;
 endif
 
 # print list of targets
 .PHONY: show-targets
 show-targets:
-	$(QUIET)$(MAKE) -pqrR . | grep --only-matching -e '^[a-zA-Z0-9][^ ]*:' | cut -d ':' -f 1 | sort
+	$(QUIET)$(MAKE) -pqrR . | grep --only-matching -e &#39;^[a-zA-Z0-9][^ ]*:&#39; | cut -d &#39;:&#39; -f 1 | sort
