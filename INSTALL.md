@@ -3,7 +3,7 @@
 ## Binary versions
 
 We provide a binary release of Infer. We encourage you to use this
-release as compiling infer's dependencies is time-consuming. Follow
+release as compiling infer&#39;s dependencies is time-consuming. Follow
 the instructions in our [Getting
 Started](http://fbinfer.com/docs/getting-started.html#install-from-source)
 page to install Infer.
@@ -14,7 +14,7 @@ page to install Infer.
 Here are the prerequisites to be able to compile Infer on MacOSX. This
 is required to compile everything from source.
 
-- opam >= 2.0.0 (instructions [here](https://opam.ocaml.org/doc/Install.html#OSX))
+- opam &gt;= 2.0.0 (instructions [here](https://opam.ocaml.org/doc/Install.html#OSX))
 - Python 2.7
 - sqlite
 - pkg-config
@@ -22,8 +22,8 @@ is required to compile everything from source.
 - cmake (only needed for the C/Objective-C analysis)
 - clang in Xcode command line tools. You can install them with the command
   `xcode-select --install` (only needed for the C/Objective-C analysis)
-- Xcode >= 6.1 (only needed for the C/Objective-C analysis)
-- autoconf >= 2.63 and automake >= 1.11.1 (if building from git)
+- Xcode &gt;= 6.1 (only needed for the C/Objective-C analysis)
+- autoconf &gt;= 2.63 and automake &gt;= 1.11.1 (if building from git)
 - gmp
 - mpfr
 
@@ -41,12 +41,12 @@ brew cask install java
 Here are the prerequisites to be able to compile Infer on Linux. This
 is required to compile everything from source.
 
-- opam >= 2.0.0
+- opam &gt;= 2.0.0
 - Python 2.7
 - pkg-config
 - Java (only needed for the Java analysis)
-- gcc >= 5.X or clang >= 3.4 (only needed for the C/Objective-C analysis)
-- autoconf >= 2.63 and automake >= 1.11.1 (if building from git)
+- gcc &gt;= 5.X or clang &gt;= 3.4 (only needed for the C/Objective-C analysis)
+- autoconf &gt;= 2.63 and automake &gt;= 1.11.1 (if building from git)
 
 See also the distro-specific instructions for Ubuntu and Debian below.
 
@@ -79,7 +79,7 @@ on its own will build the analyzers for both Java and C/ObjC.
 
 ## Install Infer from source without opam
 
-If for some reason you prefer to install Infer's OCaml dependencies by
+If for some reason you prefer to install Infer&#39;s OCaml dependencies by
 some means other than opam, you can still compile Infer by running:
 
 ```sh
