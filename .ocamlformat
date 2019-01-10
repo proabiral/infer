@@ -1,4 +1,0 @@
-let-binding-spacing = sparse
-break-cases = nested
-margin = 100
-version = 0.8
