@@ -46,9 +46,9 @@ LIBRARY_PATH = @LIBRARY_PATH@
 LIBS = @LIBS@
 mandir = @mandir@
 MENHIR = @MENHIR@
-MKDIR_P_CMD = case "@MKDIR_P@" in \
-    ./*) printf "$(ROOT_DIR)/@MKDIR_P@\n";; \
-    *) printf "@MKDIR_P@\n";; \
+MKDIR_P_CMD = case &quot;@MKDIR_P@&quot; in \
+    ./*) printf &quot;$(ROOT_DIR)/@MKDIR_P@\n&quot;;; \
+    *) printf &quot;@MKDIR_P@\n&quot;;; \
     esac
 MKDIR_P = $(shell $(MKDIR_P_CMD))
 MVN = @MVN@
