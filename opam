@@ -1,54 +1,54 @@
-opam-version: "2.0"
-name: "infer"
-version: "0.16.0"
-synopsis: "A static analyzer for Java, C, C++, and Objective-C"
-maintainer: "the infer team"
-authors: "Facebook"
-homepage: "https://github.com/facebook/infer"
-bug-reports: "https://github.com/facebook/infer/issues"
-dev-repo: "git://github.com/facebook/infer.git"
-license: "MIT"
+opam-version: &quot;2.0&quot;
+name: &quot;infer&quot;
+version: &quot;0.16.0&quot;
+synopsis: &quot;A static analyzer for Java, C, C++, and Objective-C&quot;
+maintainer: &quot;the infer team&quot;
+authors: &quot;Facebook&quot;
+homepage: &quot;https://github.com/facebook/infer&quot;
+bug-reports: &quot;https://github.com/facebook/infer/issues&quot;
+dev-repo: &quot;git://github.com/facebook/infer.git&quot;
+license: &quot;MIT&quot;
 build: [
-  ["./autogen.sh"]
-  ["./configure"
-     "--disable-c-analyzers"
-     "--prefix=%{prefix}%"]
-  [make "-j%{jobs}%"]
+  [&quot;./autogen.sh&quot;]
+  [&quot;./configure&quot;
+     &quot;--disable-c-analyzers&quot;
+     &quot;--prefix=%{prefix}%&quot;]
+  [make &quot;-j%{jobs}%&quot;]
 ]
 install: [
-  [make "install"]
+  [make &quot;install&quot;]
 ]
 depends: [
-  "ANSITerminal" {>="0.7"}
-  "apron"
-  "atdgen" {>="2.0.0"}
-  "base64"
-  "cmdliner" {>="1.0.0"}
-  "core"
-  "conf-autoconf" {build}
-  "conf-gmp" {build}
-  "conf-mpfr" {build}
-  "conf-sqlite3" {build}
-  "conf-zlib" {build}
-  "ctypes" {>="0.9.2"}
-  "dune" {build & >="1.0"}
-  "elina" {>="1.1"}
-  "javalib" {>="2.3.5" & <"3.0"}
-  "mtime"
-  "ocaml" {>="4.06.0"}
-  "ocamlfind" {build}
-  "ocamlgraph"
-  "ounit" {>="2.0.5"}
-  "parmap" {>="1.0-rc8"}
-  "ppx_deriving" {>="4.1"}
-  "sawja" {>="1.5.4"}
-  "sqlite3"
-  "xmlm" {>="1.2.0"}
-  "zarith" {>="1.7"}
+  &quot;ANSITerminal&quot; {&gt;=&quot;0.7&quot;}
+  &quot;apron&quot;
+  &quot;atdgen&quot; {&gt;=&quot;2.0.0&quot;}
+  &quot;base64&quot;
+  &quot;cmdliner&quot; {&gt;=&quot;1.0.0&quot;}
+  &quot;core&quot;
+  &quot;conf-autoconf&quot; {build}
+  &quot;conf-gmp&quot; {build}
+  &quot;conf-mpfr&quot; {build}
+  &quot;conf-sqlite3&quot; {build}
+  &quot;conf-zlib&quot; {build}
+  &quot;ctypes&quot; {&gt;=&quot;0.9.2&quot;}
+  &quot;dune&quot; {build &amp; &gt;=&quot;1.0&quot;}
+  &quot;elina&quot; {&gt;=&quot;1.1&quot;}
+  &quot;javalib&quot; {&gt;=&quot;2.3.5&quot; &amp; &lt;&quot;3.0&quot;}
+  &quot;mtime&quot;
+  &quot;ocaml&quot; {&gt;=&quot;4.06.0&quot;}
+  &quot;ocamlfind&quot; {build}
+  &quot;ocamlgraph&quot;
+  &quot;ounit&quot; {&gt;=&quot;2.0.5&quot;}
+  &quot;parmap&quot; {&gt;=&quot;1.0-rc8&quot;}
+  &quot;ppx_deriving&quot; {&gt;=&quot;4.1&quot;}
+  &quot;sawja&quot; {&gt;=&quot;1.5.4&quot;}
+  &quot;sqlite3&quot;
+  &quot;xmlm&quot; {&gt;=&quot;1.2.0&quot;}
+  &quot;zarith&quot; {&gt;=&quot;1.7&quot;}
 ]
 depexts: [
-  [ ["ubuntu"] ["python2.7-dev"] ]
-  [ ["debian"] ["python2.7-dev"] ]
-  [ ["ubuntu"] ["default-jdk"] ]
-  [ ["debian"] ["default-jdk"] ]
+  [ [&quot;ubuntu&quot;] [&quot;python2.7-dev&quot;] ]
+  [ [&quot;debian&quot;] [&quot;python2.7-dev&quot;] ]
+  [ [&quot;ubuntu&quot;] [&quot;default-jdk&quot;] ]
+  [ [&quot;debian&quot;] [&quot;default-jdk&quot;] ]
 ]
