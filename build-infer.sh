@@ -11,38 +11,38 @@ set -e
 set -o pipefail
 set -u
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-INFER_ROOT="$SCRIPT_DIR"
-PLATFORM="$(uname)"
-NCPU="$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)"
-INFER_OPAM_DEFAULT_SWITCH="ocaml-variants.4.07.1+flambda"
+SCRIPT_DIR=&quot;$( cd &quot;$( dirname &quot;${BASH_SOURCE[0]}&quot; )&quot; &amp;&amp; pwd )&quot;
+INFER_ROOT=&quot;$SCRIPT_DIR&quot;
+PLATFORM=&quot;$(uname)&quot;
+NCPU=&quot;$(getconf _NPROCESSORS_ONLN 2&gt;/dev/null || echo 1)&quot;
+INFER_OPAM_DEFAULT_SWITCH=&quot;ocaml-variants.4.07.1+flambda&quot;
 INFER_OPAM_SWITCH=${INFER_OPAM_SWITCH:-$INFER_OPAM_DEFAULT_SWITCH}
 
 function usage() {
-  echo "Usage: $0 [-y] [targets]"
+  echo &quot;Usage: $0 [-y] [targets]&quot;
   echo
-  echo " targets:"
-  echo "   all      build everything (default)"
-  echo "   clang    build C and Objective-C analyzer"
-  echo "   java     build Java analyzer"
+  echo &quot; targets:&quot;
+  echo &quot;   all      build everything (default)&quot;
+  echo &quot;   clang    build C and Objective-C analyzer&quot;
+  echo &quot;   java     build Java analyzer&quot;
   echo
-  echo " options:"
-  echo "   -h,--help             show this message"
-  echo "   --no-opam-lock        do not use the opam.locked file and let opam resolve dependencies"
-  echo "   --only-setup-opam     initialize opam, install the opam dependencies of infer, and exit"
-  echo "   --user-opam-switch    use the current opam switch to install infer (default: $INFER_OPAM_DEFAULT_SWITCH)"
-  echo "   -y,--yes              automatically agree to everything"
+  echo &quot; options:&quot;
+  echo &quot;   -h,--help             show this message&quot;
+  echo &quot;   --no-opam-lock        do not use the opam.locked file and let opam resolve dependencies&quot;
+  echo &quot;   --only-setup-opam     initialize opam, install the opam dependencies of infer, and exit&quot;
+  echo &quot;   --user-opam-switch    use the current opam switch to install infer (default: $INFER_OPAM_DEFAULT_SWITCH)&quot;
+  echo &quot;   -y,--yes              automatically agree to everything&quot;
   echo
-  echo " examples:"
-  echo "    $0               # build Java and C/Objective-C analyzers"
-  echo "    $0 java clang    # equivalent way of doing the above"
-  echo "    $0 java          # build only the Java analyzer"
+  echo &quot; examples:&quot;
+  echo &quot;    $0               # build Java and C/Objective-C analyzers&quot;
+  echo &quot;    $0 java clang    # equivalent way of doing the above&quot;
+  echo &quot;    $0 java          # build only the Java analyzer&quot;
 }
 
 # arguments
 BUILD_CLANG=${BUILD_CLANG:-no}
 BUILD_JAVA=${BUILD_JAVA:-no}
-INFER_CONFIGURE_OPTS=${INFER_CONFIGURE_OPTS:-""}
+INFER_CONFIGURE_OPTS=${INFER_CONFIGURE_OPTS:-&quot;&quot;}
 INFER_OPAM_SWITCH=${INFER_OPAM_SWITCH:-$INFER_OPAM_SWITCH_DEFAULT}
 INTERACTIVE=${INTERACTIVE:-yes}
 JOBS=${JOBS:-$NCPU}
@@ -50,10 +50,10 @@ ONLY_SETUP_OPAM=${ONLY_SETUP_OPAM:-no}
 USE_OPAM_LOCK=${USE_OPAM_LOCK:-yes}
 USER_OPAM_SWITCH=no
 
-ORIG_ARGS="$*"
+ORIG_ARGS=&quot;$*&quot;
 
-while [[ $# > 0 ]]; do
-  opt_key="$1"
+while [[ $# &gt; 0 ]]; do
+  opt_key=&quot;$1&quot;
   case $opt_key in
     all)
       BUILD_CLANG=yes
@@ -103,107 +103,107 @@ while [[ $# > 0 ]]; do
 done
 
 # if no arguments then build both clang and Java
-if [ "$BUILD_CLANG" == "no" ] && [ "$BUILD_JAVA" == "no" ]; then
+if [ &quot;$BUILD_CLANG&quot; == &quot;no&quot; ] &amp;&amp; [ &quot;$BUILD_JAVA&quot; == &quot;no&quot; ]; then
   BUILD_CLANG=yes
   BUILD_JAVA=yes
 fi
 
 # enable --yes option for some commands in non-interactive mode
 YES=
-if [ "$INTERACTIVE" == "no" ]; then
+if [ &quot;$INTERACTIVE&quot; == &quot;no&quot; ]; then
   YES=--yes
 fi
-# --yes by default for opam commands except if we are using the user's opam switch
-if [ "$INTERACTIVE" == "no" ] || [ "$USER_OPAM_SWITCH" == "no" ]; then
+# --yes by default for opam commands except if we are using the user&#39;s opam switch
+if [ &quot;$INTERACTIVE&quot; == &quot;no&quot; ] || [ &quot;$USER_OPAM_SWITCH&quot; == &quot;no&quot; ]; then
     export OPAMYES=true
 fi
 
 setup_opam () {
-    opam var root 1>/dev/null 2>/dev/null || opam init --reinit --bare --no-setup
-    opam_switch_create_if_needed "$INFER_OPAM_SWITCH"
-    opam switch set "$INFER_OPAM_SWITCH"
+    opam var root 1&gt;/dev/null 2&gt;/dev/null || opam init --reinit --bare --no-setup
+    opam_switch_create_if_needed &quot;$INFER_OPAM_SWITCH&quot;
+    opam switch set &quot;$INFER_OPAM_SWITCH&quot;
 }
 
 install_opam_deps () {
     local locked=
-    if [ "$USE_OPAM_LOCK" == yes ]; then
+    if [ &quot;$USE_OPAM_LOCK&quot; == yes ]; then
         locked=--locked
     fi
-    opam install --deps-only infer "$INFER_ROOT" $locked
+    opam install --deps-only infer &quot;$INFER_ROOT&quot; $locked
 }
 
-echo "initializing opam... " >&2
-. "$INFER_ROOT"/scripts/opam_utils.sh
-if [ "$USER_OPAM_SWITCH" == "no" ]; then
+echo &quot;initializing opam... &quot; &gt;&amp;2
+. &quot;$INFER_ROOT&quot;/scripts/opam_utils.sh
+if [ &quot;$USER_OPAM_SWITCH&quot; == &quot;no&quot; ]; then
     setup_opam
 fi
 eval $(SHELL=bash opam env)
-echo >&2
-echo "installing infer dependencies; this can take up to 30 minutes... " >&2
+echo &gt;&amp;2
+echo &quot;installing infer dependencies; this can take up to 30 minutes... &quot; &gt;&amp;2
 opam_retry install_opam_deps
 
-if [ "$ONLY_SETUP_OPAM" == "yes" ]; then
+if [ &quot;$ONLY_SETUP_OPAM&quot; == &quot;yes&quot; ]; then
   exit 0
 fi
 
-echo "preparing build... " >&2
-if [ "$BUILD_CLANG" == "no" ]; then
-  SKIP_SUBMODULES=true ./autogen.sh > /dev/null
+echo &quot;preparing build... &quot; &gt;&amp;2
+if [ &quot;$BUILD_CLANG&quot; == &quot;no&quot; ]; then
+  SKIP_SUBMODULES=true ./autogen.sh &gt; /dev/null
 else
-  ./autogen.sh > /dev/null
+  ./autogen.sh &gt; /dev/null
 fi
 
-if [ "$BUILD_CLANG" == "no" ]; then
-  INFER_CONFIGURE_OPTS+=" --disable-c-analyzers"
+if [ &quot;$BUILD_CLANG&quot; == &quot;no&quot; ]; then
+  INFER_CONFIGURE_OPTS+=&quot; --disable-c-analyzers&quot;
 fi
-if [ "$BUILD_JAVA" == "no" ]; then
-  INFER_CONFIGURE_OPTS+=" --disable-java-analyzers"
+if [ &quot;$BUILD_JAVA&quot; == &quot;no&quot; ]; then
+  INFER_CONFIGURE_OPTS+=&quot; --disable-java-analyzers&quot;
 fi
 
 ./configure $INFER_CONFIGURE_OPTS
 
-if [ "$BUILD_CLANG" == "yes" ] && ! facebook-clang-plugins/clang/setup.sh --only-check-install; then
-  echo ""
-  echo "  Warning: you are not using a release of Infer. The C and"
-  echo "  Objective-C analyses require a custom clang to be compiled"
-  echo "  now. This step takes ~30-60 minutes, possibly more."
-  echo ""
-  echo "  To speed this along, you are encouraged to use a release of"
-  echo "  Infer instead:"
-  echo ""
-  echo "  http://fbinfer.com/docs/getting-started.html"
-  echo ""
-  echo "  If you are only interested in analyzing Java programs, simply"
-  echo "  run this script with only the \"java\" argument:"
-  echo ""
-  echo "  $0 java"
-  echo ""
+if [ &quot;$BUILD_CLANG&quot; == &quot;yes&quot; ] &amp;&amp; ! facebook-clang-plugins/clang/setup.sh --only-check-install; then
+  echo &quot;&quot;
+  echo &quot;  Warning: you are not using a release of Infer. The C and&quot;
+  echo &quot;  Objective-C analyses require a custom clang to be compiled&quot;
+  echo &quot;  now. This step takes ~30-60 minutes, possibly more.&quot;
+  echo &quot;&quot;
+  echo &quot;  To speed this along, you are encouraged to use a release of&quot;
+  echo &quot;  Infer instead:&quot;
+  echo &quot;&quot;
+  echo &quot;  http://fbinfer.com/docs/getting-started.html&quot;
+  echo &quot;&quot;
+  echo &quot;  If you are only interested in analyzing Java programs, simply&quot;
+  echo &quot;  run this script with only the \&quot;java\&quot; argument:&quot;
+  echo &quot;&quot;
+  echo &quot;  $0 java&quot;
+  echo &quot;&quot;
 
-  confirm="n"
-  printf "Are you sure you want to compile clang? (y/N) "
-  if [ "$INTERACTIVE" == "no" ]; then
-    confirm="y"
-    echo "$confirm"
+  confirm=&quot;n&quot;
+  printf &quot;Are you sure you want to compile clang? (y/N) &quot;
+  if [ &quot;$INTERACTIVE&quot; == &quot;no&quot; ]; then
+    confirm=&quot;y&quot;
+    echo &quot;$confirm&quot;
   else
     read confirm
   fi
 
-  if [ "x$confirm" != "xy" ]; then
+  if [ &quot;x$confirm&quot; != &quot;xy&quot; ]; then
     exit 0
   fi
 fi
 
-make -j "$JOBS" || (
-  echo >&2
-  echo '  compilation failure; you can try running' >&2
-  echo >&2
-  echo '    make clean' >&2
-  echo "    '$0' $ORIG_ARGS" >&2
-  echo >&2
+make -j &quot;$JOBS&quot; || (
+  echo &gt;&amp;2
+  echo &#39;  compilation failure; you can try running&#39; &gt;&amp;2
+  echo &gt;&amp;2
+  echo &#39;    make clean&#39; &gt;&amp;2
+  echo &quot;    &#39;$0&#39; $ORIG_ARGS&quot; &gt;&amp;2
+  echo &gt;&amp;2
   exit 1)
 
 echo
-echo "*** Success! Infer is now built in '$SCRIPT_DIR/infer/bin/'."
-echo '*** Install infer on your system with `make install`.'
+echo &quot;*** Success! Infer is now built in &#39;$SCRIPT_DIR/infer/bin/&#39;.&quot;
+echo &#39;*** Install infer on your system with `make install`.&#39;
 echo
-echo '*** If you plan to hack on infer, check out CONTRIBUTING.md to setup your dev environment.'
+echo &#39;*** If you plan to hack on infer, check out CONTRIBUTING.md to setup your dev environment.&#39;
