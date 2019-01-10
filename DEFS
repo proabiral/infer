@@ -34,19 +34,19 @@ def create_infer_genrule(
     name,
     srcs
     ):
-  genrule_name = name + '_infer'
+  genrule_name = name + &#39;_infer&#39;
   genrule(
     name = genrule_name,
     srcs=srcs,
-    cmd = ' '.join([
-        os.getenv('INFER_BIN', 'infer'),
-        '--genrule-mode',
-        '--project-root', os.getenv('PROJECT_ROOT', os.environ['PWD']),
-        '--eradicate-only',
-        '--results-dir', '$OUT',
-        '--classpath', '$(classpath :{})'.format(name),
-        '--sourcepath', '$SRCDIR',
-        '--generated-classes', '$(location :{})'.format(name),
+    cmd = &#39; &#39;.join([
+        os.getenv(&#39;INFER_BIN&#39;, &#39;infer&#39;),
+        &#39;--genrule-mode&#39;,
+        &#39;--project-root&#39;, os.getenv(&#39;PROJECT_ROOT&#39;, os.environ[&#39;PWD&#39;]),
+        &#39;--eradicate-only&#39;,
+        &#39;--results-dir&#39;, &#39;$OUT&#39;,
+        &#39;--classpath&#39;, &#39;$(classpath :{})&#39;.format(name),
+        &#39;--sourcepath&#39;, &#39;$SRCDIR&#39;,
+        &#39;--generated-classes&#39;, &#39;$(location :{})&#39;.format(name),
     ]),
-    out = 'infer_out',
+    out = &#39;infer_out&#39;,
   )
