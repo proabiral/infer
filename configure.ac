@@ -36,17 +36,17 @@ AC_CHECK_FILE([.facebook], [is_facebook_tree=yes], [is_facebook_tree=no])
 IS_FACEBOOK_TREE=$is_facebook_tree
 AC_SUBST([IS_FACEBOOK_TREE])
 
-AC_ARG_VAR([PATH], [the shell's $PATH list of directories to search for executables])
+AC_ARG_VAR([PATH], [the shell&#39;s $PATH list of directories to search for executables])
 
 # to compile the facebook-clang-plugins
 AC_ARG_VAR([CLANG_PREFIX], [directory where clang is installed (defaults=$PWD/facebook-clang-plugins/clang/install)])
-AS_IF([test "x$CLANG_PREFIX" = "x"], [
-  CLANG_PREFIX="$(pwd)/facebook-clang-plugins/clang/install"
+AS_IF([test &quot;x$CLANG_PREFIX&quot; = &quot;x&quot;], [
+  CLANG_PREFIX=&quot;$(pwd)/facebook-clang-plugins/clang/install&quot;
 ])
 
 AC_ARG_VAR([CLANG_INCLUDES], [clang headers directories (defaults=$CLANG_PREFIX/include)])
-AS_IF([test "x$CLANG_INCLUDES" = "x"], [
-  CLANG_INCLUDES="$CLANG_PREFIX/include"
+AS_IF([test &quot;x$CLANG_INCLUDES&quot; = &quot;x&quot;], [
+  CLANG_INCLUDES=&quot;$CLANG_PREFIX/include&quot;
 ])
 
 
@@ -73,9 +73,9 @@ AC_ARG_WITH(fcp-clang,
   ,
   with_fcp_clang=no)
 
-AS_IF([test "x$enable_c_analyzers" = "xyes"], [
+AS_IF([test &quot;x$enable_c_analyzers&quot; = &quot;xyes&quot;], [
   AC_MSG_CHECKING([whether to use the compilers in $CLANG_PREFIX/bin])
-  case "$with_fcp_clang" in
+  case &quot;$with_fcp_clang&quot; in
     no)
       AC_MSG_RESULT([no])
     ;;
@@ -86,7 +86,7 @@ AS_IF([test "x$enable_c_analyzers" = "xyes"], [
       AC_MSG_RESULT([yes])
     ;;
     *)
-      AC_MSG_ERROR([invalid value for --without-fcp-clang; use "yes" or "no"])
+      AC_MSG_ERROR([invalid value for --without-fcp-clang; use &quot;yes&quot; or &quot;no&quot;])
     ;;
   esac
 
@@ -109,12 +109,12 @@ AC_CHECK_TOOL([PYTHON27], [python2.7], [no])
 AC_ASSERT_PROG([python2.7], [$PYTHON27])
 
 AC_CHECK_TOOL([XCODE_SELECT], [xcode-select], [no])
-AS_IF([test "x$XCODE_SELECT" != "xno"], [XCODE_SELECT_OUT=`xcode-select -p`])
+AS_IF([test &quot;x$XCODE_SELECT&quot; != &quot;xno&quot;], [XCODE_SELECT_OUT=`xcode-select -p`])
 
 AS_IF(
-  [test "x$XCODE_BASE" != "x"],
+  [test &quot;x$XCODE_BASE&quot; != &quot;x&quot;],
         [AC_CHECK_FILE($XCODE_BASE,[HAS_OBJC=yes],[HAS_OBJC=no])],
-  [test "x$XCODE_SELECT" != "xno"],
+  [test &quot;x$XCODE_SELECT&quot; != &quot;xno&quot;],
         [XCODE_BASE=$XCODE_SELECT_OUT HAS_OBJC=yes],
   [HAS_OBJC=no])
 
@@ -122,7 +122,7 @@ AC_SUBST([XCODE_BASE])
 AC_SUBST([HAS_OBJC])
 
 # prefer clang over gcc because the plugins makes use of
-# clang-specific #pragma's
+# clang-specific #pragma&#39;s
 AC_PROG_CC(clang gcc)
 AC_PROG_AWK
 AC_PROG_INSTALL
@@ -130,23 +130,23 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_MKDIR_P
 
-if test "x$enable_c_analyzers" = "xyes"; then
+if test &quot;x$enable_c_analyzers&quot; = &quot;xyes&quot;; then
   AC_PROG_CPP
   AC_PROG_CXX(clang++ g++)
-  # AC_PROG_CXX doesn't set CXX to "no" in case of failure (I have no words...); from the manual:
-  # "If none of those checks succeed, then as a last resort set CXX to g++. "
-  AS_IF([$CXX --version > /dev/null], [], [AC_MSG_ERROR([no C++ compiler found])])
+  # AC_PROG_CXX doesn&#39;t set CXX to &quot;no&quot; in case of failure (I have no words...); from the manual:
+  # &quot;If none of those checks succeed, then as a last resort set CXX to g++. &quot;
+  AS_IF([$CXX --version &gt; /dev/null], [], [AC_MSG_ERROR([no C++ compiler found])])
 
-  dnl clang wants either clang version >= 3.1 or gcc version >= 4.7.2 to
+  dnl clang wants either clang version &gt;= 3.1 or gcc version &gt;= 4.7.2 to
   dnl compile itself
   AC_MSG_CHECKING([if the C/C++ compiler is recent enough])
   AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
 #ifdef __clang__
-#if __clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 1)
+#if __clang_major__ &lt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &lt; 1)
 #error compiler is too old
 #endif // version check
 #elif defined __GNUC__ // __clang__
-#if __GNUC__ < 4 || (__GNUC__ == 4 && (__GNUC_MINOR__ < 7 || (__GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ < 2)))
+#if __GNUC__ &lt; 4 || (__GNUC__ == 4 &amp;&amp; (__GNUC_MINOR__ &lt; 7 || (__GNUC_MINOR__ == 7 &amp;&amp; __GNUC_PATCHLEVEL__ &lt; 2)))
 #error compiler is too old
 #endif // version check
 #endif // __GNUC__
@@ -157,7 +157,7 @@ if test "x$enable_c_analyzers" = "xyes"; then
       AC_MSG_ERROR([
 Your C/C++ compiler seems to be too old to build clang, which is
 required by the facebook-clang-plugins. Please install either
-gcc version >= 4.7.2 or clang version >= 3.1.
+gcc version &gt;= 4.7.2 or clang version &gt;= 3.1.
 
 See the output of `./configure --help` to force the use of a different
 C compiler.
@@ -201,7 +201,7 @@ AC_ARG_VAR([OPAMROOT], [Root of the local opam installation.])
 AC_ARG_VAR([OPAMSWITCH], [Opam switch used for building infer.])
 
 AC_CHECK_TOOL([OPAM], [opam], [no])
-AS_IF([test "$OPAM" != "no"], [
+AS_IF([test &quot;$OPAM&quot; != &quot;no&quot;], [
   AC_MSG_CHECKING([opam version])
   opam_version=$(opam --version)
   case $opam_version in
@@ -209,10 +209,10 @@ AS_IF([test "$OPAM" != "no"], [
     *) AC_MSG_ERROR([opam version $opam_version is not supported, please install opam version 2 instead]); break;;
   esac
   AC_MSG_CHECKING([current opam root])
-  OPAMROOT=$("$OPAM" config var root)
+  OPAMROOT=$(&quot;$OPAM&quot; config var root)
   AC_MSG_RESULT([$OPAMROOT])
   AC_MSG_CHECKING([current opam switch])
-  OPAMSWITCH=$("$OPAM" switch show)
+  OPAMSWITCH=$(&quot;$OPAM&quot; switch show)
   AC_MSG_RESULT([$OPAMSWITCH])
 ], [
   OPAMROOT=no
@@ -221,7 +221,7 @@ AS_IF([test "$OPAM" != "no"], [
 AC_SUBST([OPAMROOT])
 AC_SUBST([OPAMSWITCH])
 
-if test "x$enable_java_analyzers" = "xyes"; then
+if test &quot;x$enable_java_analyzers&quot; = &quot;xyes&quot;; then
   AC_CHECK_TOOL([JAVA], [java], [no])
   AC_CHECK_TOOL([JAVAC], [javac], [no])
   AC_ASSERT_PROG([javac], [$JAVAC])
@@ -230,10 +230,10 @@ if test "x$enable_java_analyzers" = "xyes"; then
   AC_ASSERT_OCAML_PKG([sawja])
 
   AC_MSG_CHECKING([for JAVA_HOME])
-  cat - <<_ACEOF >conftest.java
+  cat - &lt;&lt;_ACEOF &gt;conftest.java
 public class conftest {
   public static void main(String[[]] args) {
-    System.out.println(System.getProperty("java.home"));
+    System.out.println(System.getProperty(&quot;java.home&quot;));
     System.exit(0);
   }
 }
@@ -255,7 +255,7 @@ _ACEOF
   AC_SUBST([USER_JAVA_HOME])
 
   AC_CHECK_LIB([z], [inflateEnd], [ZLIB_FOUND=yes], [ZLIB_FOUND=no])
-  AS_IF([test x"$ZLIB_FOUND" = xno], [AC_MSG_ERROR([zlib not found.])])
+  AS_IF([test x&quot;$ZLIB_FOUND&quot; = xno], [AC_MSG_ERROR([zlib not found.])])
 fi
 # end if($enable_java_analyzers)
 
@@ -274,18 +274,18 @@ AC_SUBST([ENABLE_OCAML_BINANNOT])
 AC_MSG_CHECKING([which .buckversion to use])
 fb_buckversion_file=facebook/dependencies/dotbuckversion
 oss_buckversion_file=dotbuckversion
-AS_IF([test x"$is_facebook_tree" = x"yes"],
-  [buckversion_file="$fb_buckversion_file"],
-  [buckversion_file="$oss_buckversion_file"])
-cat "$buckversion_file" > ".buckversion"
+AS_IF([test x&quot;$is_facebook_tree&quot; = x&quot;yes&quot;],
+  [buckversion_file=&quot;$fb_buckversion_file&quot;],
+  [buckversion_file=&quot;$oss_buckversion_file&quot;])
+cat &quot;$buckversion_file&quot; &gt; &quot;.buckversion&quot;
 AC_MSG_RESULT([$buckversion_file])
 
 
 AC_CHECK_TOOL([GETCONF], [getconf], [no])
 AC_MSG_CHECKING([the number of cpus the build host has])
-if test "$GETCONF" != "no"; then
-  if test $("$GETCONF" _NPROCESSORS_ONLN); then
-    NCPU=$("$GETCONF" _NPROCESSORS_ONLN)
+if test &quot;$GETCONF&quot; != &quot;no&quot;; then
+  if test $(&quot;$GETCONF&quot; _NPROCESSORS_ONLN); then
+    NCPU=$(&quot;$GETCONF&quot; _NPROCESSORS_ONLN)
     AC_MSG_RESULT([$NCPU])
   fi
 else
@@ -300,13 +300,13 @@ AC_CHECK_TOOL([ANT], [ant], [no])
 AC_CHECK_TOOL([BUCK], [buck], [no])
 AC_CHECK_TOOL([EMACS], [emacs], [no])
 AC_ARG_VAR([MVN], [command to execute Maven when running tests])
-AS_IF([test "x$MVN" = "x"], [
+AS_IF([test &quot;x$MVN&quot; = &quot;x&quot;], [
   AC_CHECK_TOOL([MVN], [mvn], [no])
 ], [
   AC_MSG_RESULT([checking for mvn... $MVN])
 ])
 AC_CHECK_TOOL([NDKBUILD], [ndk-build], [no])
-if test x"$NDKBUILD" = x"no"; then
+if test x&quot;$NDKBUILD&quot; = x&quot;no&quot;; then
 # ndk-build not in $PATH, look into potential android NDK install paths and record the absolute path
 # to ndk-build
   AC_PATH_PROG([NDKBUILD], [ndk-build], [no],
@@ -318,10 +318,10 @@ AC_CHECK_PYTHON_MODULE([$PYTHON27], [lxml])
 AC_CHECK_TOOL([XCPRETTY], [xcpretty], [no])
 
 AC_CHECK_TOOL([SED], [sed], [no])
-AS_IF([test "$SED" != "xno"], [
+AS_IF([test &quot;$SED&quot; != &quot;xno&quot;], [
   AC_MSG_CHECKING([if sed is GNU sed])
-  AS_IF(["$SED" --version 2> /dev/null | grep -q -e "GNU sed"], [
-    GNU_SED="$SED"
+  AS_IF([&quot;$SED&quot; --version 2&gt; /dev/null | grep -q -e &quot;GNU sed&quot;], [
+    GNU_SED=&quot;$SED&quot;
     AC_MSG_RESULT([yes])
   ], [
     AC_MSG_RESULT([no])
@@ -335,18 +335,18 @@ AC_CHECK_TOOL([BREW], [brew], [no])
 AC_CHECK_TOOL([PATCHELF], [patchelf], [no])
 
 # warn about broken pkg-config version for brew users
-if test "$BREW" != "no"; then
-  if "$BREW" info pkg-config > /dev/null && \
-     test x"$(which pkg-config)" = x"/usr/local/bin/pkg-config"; then
+if test &quot;$BREW&quot; != &quot;no&quot;; then
+  if &quot;$BREW&quot; info pkg-config &gt; /dev/null &amp;&amp; \
+     test x&quot;$(which pkg-config)&quot; = x&quot;/usr/local/bin/pkg-config&quot;; then
     AC_MSG_NOTICE([pkg-config seems to have been installed from Homebrew])
     AC_MSG_CHECKING([for bad version of pkg-config brew package])
-    if readlink $(which pkg-config) | grep -q -e '/0.29.1_1/'; then
+    if readlink $(which pkg-config) | grep -q -e &#39;/0.29.1_1/&#39;; then
       AC_MSG_RESULT([found 0.29.1_1])
       AC_MSG_WARN([])
       AC_MSG_WARN([This version of pkg-config is known to cause issues with compiling infer.])
       AC_MSG_WARN([Consider running the following command to get a working version:])
       AC_MSG_WARN([])
-      AC_MSG_WARN([  brew remove pkg-config && brew update && brew install pkg-config])
+      AC_MSG_WARN([  brew remove pkg-config &amp;&amp; brew update &amp;&amp; brew install pkg-config])
       AC_MSG_WARN([])
     else
       AC_MSG_RESULT([no bad version found])
