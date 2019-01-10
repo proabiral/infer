@@ -5,15 +5,15 @@ os:
   - osx
 services: docker
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y aspcud; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew unlink python; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install opam; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;linux&quot; ]]; then sudo apt-get -qq update; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;linux&quot; ]]; then sudo apt-get install -y aspcud; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then brew update; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then brew unlink python; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then brew install opam; fi
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then opam init --reinit --no-setup --disable-sandboxing; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_wait 60 opam install --yes .; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then opam init --reinit --no-setup --disable-sandboxing; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then travis_wait 60 opam install --yes .; fi
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./.travis/local_install_tests.sh; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./.travis/docker_tests.sh; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;osx&quot; ]]; then ./.travis/local_install_tests.sh; fi
+  - if [[ &quot;$TRAVIS_OS_NAME&quot; == &quot;linux&quot; ]]; then ./.travis/docker_tests.sh; fi
   - git diff --exit-code
