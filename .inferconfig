@@ -1,17 +1,17 @@
 {
-  "force-delete-results-dir": true,
-  "siof-safe-methods": ["getGlobalNonPODWhitelisted", "whitelisted::getGlobalNonPOD",
-                        "whitelisted::TemplatedObject::getGlobalNonPOD"],
-  "skip-translation": [
+  &quot;force-delete-results-dir&quot;: true,
+  &quot;siof-safe-methods&quot;: [&quot;getGlobalNonPODWhitelisted&quot;, &quot;whitelisted::getGlobalNonPOD&quot;,
+                        &quot;whitelisted::TemplatedObject::getGlobalNonPOD&quot;],
+  &quot;skip-translation&quot;: [
     {
-      "language": "Java",
-      "source_contains": "_SHOULD_BE_SKIPPED_"
+      &quot;language&quot;: &quot;Java&quot;,
+      &quot;source_contains&quot;: &quot;_SHOULD_BE_SKIPPED_&quot;
     }
   ],
-  "skip-implementation": [
+  &quot;skip-implementation&quot;: [
     {
-      "language": "Java",
-      "source_contains": "_SHOULD_SKIP_IMPLEMENTATION_"
+      &quot;language&quot;: &quot;Java&quot;,
+      &quot;source_contains&quot;: &quot;_SHOULD_SKIP_IMPLEMENTATION_&quot;
     }
   ]
 }
