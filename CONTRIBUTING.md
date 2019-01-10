@@ -21,7 +21,7 @@ We welcome contributions via [pull requests on GitHub](https://github.com/facebo
 
 ### Development Dependencies
 
-You'll want to install a few more dependencies to comfortably hack on the infer codebase. Simply
+You&#39;ll want to install a few more dependencies to comfortably hack on the infer codebase. Simply
 run:
 ```sh
 make devsetup
@@ -52,16 +52,16 @@ make devsetup
 ### Debugging OCaml Code
 
 - Printf-debug using `Logging.debug_dev`. It comes with a warning so
-  that you don't accidentally push code with calls to `debug_dev` to
+  that you don&#39;t accidentally push code with calls to `debug_dev` to
   the repo.
 
 - Browse the documentation of OCaml modules in your browser with `make doc`
 
 - When using `ocamldebug`, and in particular when setting break points
-  with `break @ <module> <line>` don't forget that an infer module `M`
+  with `break @ &lt;module&gt; &lt;line&gt;` don&#39;t forget that an infer module `M`
   is in reality called `InferModules__M`, or `InferBase__M`, or
   ... See the html documentation of the OCaml modules from `make doc`
-  if you're unsure of a module name.
+  if you&#39;re unsure of a module name.
 
 ```console
 $ ledit ocamldebug infer/bin/infer.bc
@@ -77,7 +77,7 @@ Breakpoint 1 at 9409684: file backend/InferAnalyze.ml, line 99, characters 18-78
   instance: `INFER_ARGS=--debug^-o^infer-out-foo`.
 
   Many operations require the results directory and database to be
-  initialized with `ResultsDir.assert_results_dir ""`.
+  initialized with `ResultsDir.assert_results_dir &quot;&quot;`.
 
 
 ## Hacking on the Code in facebook-clang-plugins
@@ -119,12 +119,12 @@ $ cat base/toto.ml
 let b = List.mem true [true; false]
 $ make
 [...]
-File "base/toto.ml", line 1, characters 17-21:
-Error: This variant expression is expected to have type 'a list
+File &quot;base/toto.ml&quot;, line 1, characters 17-21:
+Error: This variant expression is expected to have type &#39;a list
        The constructor true does not belong to type list
 ```
 
-- All modules open `IStd` using `open! IStd`. This is to make that fact more explicit (there's also
+- All modules open `IStd` using `open! IStd`. This is to make that fact more explicit (there&#39;s also
   the compilation flag mentioned above), and also it helps merlin find the right types. In
   particular this also opens `Core.Std`.
 
@@ -172,10 +172,10 @@ module MF = MarkupFormatter
   the same type.
 
 - Use named arguments for functions taken as argument; it is common to name a function argument
-  `f`. For instance: `List.map : 'a list -> f:('a -> 'b) -> 'b list`.
+  `f`. For instance: `List.map : &#39;a list -&gt; f:(&#39;a -&gt; &#39;b) -&gt; &#39;b list`.
 
 - In modules defining a type `t`, functions that take an argument of that type should generally have
-  that argument come first, except for for optional arguments: `val f : ?optional:bool -> t -> ...`.
+  that argument come first, except for for optional arguments: `val f : ?optional:bool -&gt; t -&gt; ...`.
 
 - Use the `_hum` suffix to flag functions that output human-readable strings.
 
@@ -183,7 +183,7 @@ module MF = MarkupFormatter
 
 ### C/C++/Objective-C
 
-Follow `clang-format` (see ".clang-format" at the root of the repository).
+Follow `clang-format` (see &quot;.clang-format&quot; at the root of the repository).
 
 ## Testing your Changes
 
@@ -193,7 +193,7 @@ Follow `clang-format` (see ".clang-format" at the root of the repository).
 - Run the tests: `make -j 4 test` (adjust 4 to the number of cores available of your machine). The
   tests (almost) all consist of the same three ingredients:
   1. Some source code to run infer on.
-  2. An "issues.exp" file where each line represents one item of output of the test. For most tests,
+  2. An &quot;issues.exp&quot; file where each line represents one item of output of the test. For most tests,
      one line is one issue reported by infer.
   3. A `Makefile` that orchestrates the test, for instance running infer on the source code and
      comparing the results with issues.exp using `diff`.
@@ -204,25 +204,25 @@ Follow `clang-format` (see ".clang-format" at the root of the repository).
 - If relevant, add a test for your change.
 
 - To add a test that infer finds (or does not find) a particular issue, add your test in
-  "infer/tests/codetoanalyze/{language}/{analyzer}/". Look at the `Makefile` in that directory and
-  make sure it runs your test. "{analyzer}" is often an infer analyzer (as in
+  &quot;infer/tests/codetoanalyze/{language}/{analyzer}/&quot;. Look at the `Makefile` in that directory and
+  make sure it runs your test. &quot;{analyzer}&quot; is often an infer analyzer (as in
   `infer -a {analyzer}`), with some special cases:
-  - "errors" is "infer"
-  - "frontend" is a mode where the expected output is the result of the translation of the program
-     by infer's clang frontend into infer's intermediate representation.
+  - &quot;errors&quot; is &quot;infer&quot;
+  - &quot;frontend&quot; is a mode where the expected output is the result of the translation of the program
+     by infer&#39;s clang frontend into infer&#39;s intermediate representation.
 
   Name the procedures in your test following these conventions:
   - Test procedures where the analyzer should report an error should end with the suffix `Bad`.
   - Test procedures where the analyzer should not report an error should end with the suffix `Ok`.
   - Test procedures documenting current limitations of the analyzer should have the prefix `FP_`
-    (for "false positive") or `FN_` (for "false negative") and a comment explaining why the analyzer
+    (for &quot;false positive&quot;) or `FN_` (for &quot;false negative&quot;) and a comment explaining why the analyzer
     gets the wrong answer.
 
 
 - To add a test that a certain build system integration or a command-line option works in a certain
-  way, add a test in "infer/tests/build_systems/".
+  way, add a test in &quot;infer/tests/build_systems/&quot;.
 
-- If you created a new Makefile for your test, add it to the root "Makefile", either to the
+- If you created a new Makefile for your test, add it to the root &quot;Makefile&quot;, either to the
   `DIRECT_TESTS` (first case) or to the `BUILD_SYSTEMS_TESTS` variable (second case). Gate the
   test appropriately if it depends on Java or Clang or Xcode (see how other tests do it).
 
@@ -242,4 +242,4 @@ the constraints in opam. This prevents unpredictable breakages of infer or its d
 especially for infer releases, for which it is more difficult to change their package constraints
 after the fact.
 
-To add an opam package or update its version constraints, edit 'opam' then run `make opam.locked`.
+To add an opam package or update its version constraints, edit &#39;opam&#39; then run `make opam.locked`.
